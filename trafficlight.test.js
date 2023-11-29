@@ -13,13 +13,13 @@ describe('test suite traffic light', () => {
 });
 
 describe('test suite traffic light', () => {
-    it(`case red light`, () => {
+    it(`case green light`, () => {
         expect(app.trafficLight("green")).toBe("WALK!");
     });
 });
 
 describe('test suite traffic light', () => {
-    it(`case red light`, () => {
+    it(`case no light`, () => {
         expect(app.trafficLight()).toBe("OUT OF ORDER");
     });
 });
