@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    tools {nodejs "node"}
+    stages {
+        stage("cloning repo") {
+            steps {
+                script {
+                    git branch: "main",
+                    url: "https://github.com/anticN/M324-traffic-light.git"
+                }
+            }
+        }
+        
+        stage("install jest-cli") {
+            steps {
+                sh "npm install jest-cli -g"
+            }
+        }
+        
+        stage("install dependencies") {
+            steps {
+                sh "npm i"
+            }
+        }
+        
+        stage("test") {
+            steps {
+                sh "npm test"
+            }
+        }
+    }
+}
