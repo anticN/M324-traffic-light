@@ -4,20 +4,21 @@
 ```
 npm install
 ```
-2. Run index either with npm run or with node and 
-provide the following arguments: green or red or orange or <nothing>
+2. Start first the server
 ```
-$ npm run index -- green                
+$ npm run server 
+```
+3. Open a 2nd terminal and make a test request (optional)
+```
+$ curl http://localhost:3000/api/welcome
 ...
-Traffic light is green                
-WALK                                  
+{"message":"Welcome to Traffic-Light!","status":"success"}
 ```
-or direct call with node
+4. Run unit-tests (in the 2nd terminal)
 ```
-$ node index.js red
-Traffic light is red
-DON'T WALK!                        
+$ npm run test
 ...
+{"message":"Welcome to Traffic-Light!","status":"success"}
 ```
 
 #### How to test the index
@@ -25,8 +26,7 @@ DON'T WALK!
 ```
 npm i jest-cli -g
 ```
-2. Run test (see <file>.test.js)
+2. Run tests
 ```
 npm run test
 ```
-3. More details on unit-testing see [jest](https://jestjs.io/docs/getting-started).
