@@ -35,7 +35,9 @@ function trafficLight(color){
         }//??
         else if (color === 'green'){//??
             return `WALK!`//??
-        }//??
+        }else{
+            return "UNKNOWN COLOR"
+        }
     }//??
 }
 

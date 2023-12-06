@@ -23,4 +23,12 @@ module.exports = app => {
             status: 'success'
         });
     });
+    
+    app.get('/api/trafficlight/:color', (req, res) => {
+        let color = req.params.color;
+        res.status(200).json({
+            message: lib.trafficLight(color),
+            status: 'success'
+        });
+    });
 }
