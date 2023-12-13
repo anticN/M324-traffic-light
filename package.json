@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "M324 Devops",
   "scripts": {
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "test": "jest"
   },
   "keywords": [
     "m324",
