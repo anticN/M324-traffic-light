@@ -1,32 +1,60 @@
 pipeline {
-    agent any
-    tools {nodejs "node"}
-    stages {
-        stage("cloning repo") {
+  environment {
+    registry = "anticn06/traffic-light:backend"
+    registryCredential = "dockerhub"
+  }
+  agent any
+  tools {nodejs "node"}
+  stages {
+    stage('Cloning Repo') {
             steps {
-                script {
-                    git branch: "main",
-                    url: "https://github.com/anticN/M324-traffic-light.git"
-                }
-            }
-        }
-        
-        stage("install jest-cli") {
-            steps {
-                sh "npm install jest-cli -g"
-            }
-        }
-        
-        stage("install dependencies") {
-            steps {
-                sh "npm i"
-            }
-        }
-        
-        stage("test") {
-            steps {
-                sh "npm test"
-            }
-        }
+              script {
+                git branch: "main",
+                url: "https://github.com/anticN/M324-traffic-light.git"
+           }
+         }
     }
+    stage('Building image') {
+      steps{
+        script {
+          docker.build registry
+        }
+      }
+    }
+
+    stage('Install jest-cli') {
+      steps {
+        sh 'npm install jest-cli -g'
+     }
+    }
+
+    stage('Install dependencies') {
+      steps {
+        sh 'npm install'
+      }
+    }
+
+    stage('Run container for testing') {
+      steps {
+        sh 'docker run -d -p 3000:3000 --name traffic-container ${registry}'
+      }
+    }
+    stage('Test') {
+      steps {
+         sh 'npm test'
+      }
+    }
+
+    stage('Remove traffic container') {
+      steps{
+        sh 'docker rm -f traffic-container'
+      }
+    }
+
+    stage('Remove Unused docker image') {
+      steps{
+        sh 'docker rmi -f ${registry}'
+      }
+    }
+  }
 }
